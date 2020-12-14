@@ -10,10 +10,15 @@ float canonO::getD0() const
     return d0;
 }
 
-canonO::canonO(float distancia,float alturaof,float posx)
+float canonO::getXo() const
+{
+    return Xo;
+}
+
+canonO::canonO(float distancia,float alturaof)
 {
     d=distancia;
-    Xo=posx;
+    Xo=0;
     Ho=alturaof;
     Yo = Ho;
     d0 = 0.05*d;

@@ -13,9 +13,10 @@ private:
     float Yd;
     float d0;
 public:
-    canonD(float distancia,float alturaof,float posx);
+    canonD(float distancia,float alturaof);
     float getXd() const;
     float getYd() const;
+    float getD0() const;
 };
 
 #endif // CANOND_H

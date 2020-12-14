@@ -13,10 +13,11 @@ private:
     float Yo ;
     float d0 ;
 public:
-    canonO(float distancia,float alturaof,float posx);
+    canonO(float distancia,float alturaof);
 
     float getYo() const;
     float getD0() const;
+    float getXo() const;
 };
 
 #endif // CANONO_H

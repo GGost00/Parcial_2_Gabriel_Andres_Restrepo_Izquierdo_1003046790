@@ -10,11 +10,16 @@ float canonD::getYd() const
     return Yd;
 }
 
-canonD::canonD(float distancia,float alturadf,float posx)
+float canonD::getD0() const
+{
+    return d0;
+}
+
+canonD::canonD(float distancia,float alturadf)
 {
     d=distancia;
     Hd=alturadf;
-    Xd = d+posx;
+    Xd = d;
     Yd = Hd;
     d0 = 0.025*d;
 
