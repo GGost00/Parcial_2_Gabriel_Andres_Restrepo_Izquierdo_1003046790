@@ -5,9 +5,9 @@
 class balaO
 {
 private:
-    float angulo;
-    float velocidad;
-    float tiempo;
+    int angulo;
+    int velocidad;
+    double tiempo;
 public:
     balaO();
     float getAngulo() const;

@@ -15,6 +15,11 @@ float canonD::getD0() const
     return d0;
 }
 
+float canonD::getD() const
+{
+    return d;
+}
+
 canonD::canonD(float distancia,float alturadf)
 {
     d=distancia;

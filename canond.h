@@ -17,6 +17,7 @@ public:
     float getXd() const;
     float getYd() const;
     float getD0() const;
+    float getD() const;
 };
 
 #endif // CANOND_H
