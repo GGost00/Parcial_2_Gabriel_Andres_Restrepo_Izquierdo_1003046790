@@ -10,11 +10,13 @@ private:
     float d ;
     float Ho ;
     float Xo ;
-    float Yo = Ho;
-    float d0 = 0.05*d;
+    float Yo ;
+    float d0 ;
 public:
     canonO(float distancia,float alturaof,float posx);
-    //int disparos(int x_1,int y_1,int x_2,int y_2,int distancia,float radio);
+
+    float getYo() const;
+    float getD0() const;
 };
 
 #endif // CANONO_H
