@@ -16,6 +16,7 @@ void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad);
 void DisparoDefensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad);
 void DefensaDefensivo1(canonO disparoO,canonD disparoD,int cantidad);
 void ContraAtaqueOf(canonO disparoO,canonD disparoD,int cantidad);
+void Menu_(canonO disparoO,canonD disparoD);
 
 int main()
 {
@@ -32,10 +33,9 @@ int main()
     canonD disparoD = canonD(distancia,Hod);
     cout<<endl;
 
-    //DisparoOfensivo(disparoO, disparoD, 1,3);
-    //DisparoDefensivo(disparoO, disparoD, 1,3);
-    //DefensaDefensivo1(disparoO, disparoD,3);
-    //ContraAtaqueOf(disparoO, disparoD,3);
+    system("CLS");
+    Menu_(disparoO,disparoD);
+
 
 
     return 0;
@@ -265,6 +265,54 @@ void ContraAtaqueOf(canonO disparoO,canonD disparoD,int cantidad){
     }
     if(flag != cantidad){
         cout << "No impacto en los disparos esperados"<< endl;
+    }
+}
+void Menu_(canonO disparoO,canonD disparoD){
+    int opcion;
+    cout<<"********************************************"<<endl;
+    cout<<"*             QUE QUIERE HECER             *"<<endl;
+    cout<<"********************************************"<<endl;
+    cout<<"*                                          *"<<endl;
+    cout<<"*   1.VER CASO 1                           *"<<endl;
+    cout<<"*   2.VER CASO 2                           *"<<endl;
+    cout<<"*   3.VER CASO 3                           *"<<endl;
+    cout<<"*   4.VER CASO 4                           *"<<endl;
+    cout<<"*   5.VER CASO 5                           *"<<endl;
+    cout<<"*   6.SALIR                                *"<<endl;
+    cout<<"*                                          *"<<endl;
+    cout<<"********************************************"<<endl;
+    cin>>opcion;
+    switch (opcion) {
+    case 1:
+        system("CLS");
+        DisparoOfensivo(disparoO, disparoD, 1,3);
+       break;
+    case 2:
+        system("CLS");
+        DisparoDefensivo(disparoO, disparoD, 1,3);
+        break;
+    case 3:
+        system("CLS");
+        DefensaDefensivo1(disparoO, disparoD,3);
+        break;
+    case 4:
+        system("CLS");
+        DefensaDefensivo1(disparoO, disparoD,3);
+        break;
+    case 5:
+        system("CLS");
+        ContraAtaqueOf(disparoO, disparoD,3);
+        break;
+    case 6:
+        cout<<"********************************************"<<endl;
+        cout<<"*           QUE TENGA BUEN DIA             *"<<endl;
+        cout<<"********************************************"<<endl;
+        break;
+    default:
+        cout<<"********************************************"<<endl;
+        cout<<"*             !NO ESCOGIO NADA¡            *"<<endl;
+        cout<<"********************************************"<<endl;
+        break;
     }
 }
 
