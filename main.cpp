@@ -1,19 +1,24 @@
 #include <iostream>
 #include <math.h>
+#include <vector>
 #include "canond.h"
 #include "canono.h"
+#include "balad.h"
+#include "balao.h"
 #define G 9.81
 #define pi 3.141617
 
 using namespace std;
 
-void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo);
-void DisparoDefensivo(canonO disparoO,canonD disparoD, int Voo);
+balaD disparoO1 = balaD();
+balaO disparoD1 = balaO();
+void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad);
+void DisparoDefensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad);
 
 int main()
 {
 
-    float distancia,Hod,Hoo,pxo;
+    float distancia,Hod,Hoo;
     cout<<"ingrese la distancia entre los dos canones-> ";
     cin>>distancia;
     cout<<"ingrese la altura del canon ofensivo-> ";
@@ -24,8 +29,8 @@ int main()
     canonO disparoO = canonO(distancia,Hoo);
     canonD disparoD = canonD(distancia,Hod);
     cout<<endl;
-    //DisparoOfensivo(disparoO, disparoD, 1);
-    DisparoDefensivo(disparoO, disparoD, 1);
+    //DisparoOfensivo(disparoO, disparoD, 1,3);
+    //DisparoDefensivo(disparoO, disparoD, 1,3);
 
     return 0;
 }
@@ -39,7 +44,8 @@ void ImprimirResultados1(int angle,int V0o,float x,float y,int t)
     cout << endl;
 
 }
-void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo){
+void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad){
+    vector<int> disparo;
     int flag = 0;
     float x,y;
     float Vxo,Vy0;
@@ -57,25 +63,37 @@ void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo){
                 y = disparoO.getYo() + Vy0*t -(0.5*G*t*t);
                 if(sqrt(pow((disparoD.getXd() - x),2)+pow((disparoD.getYd() - y),2)) < disparoO.getD0()){
                     if(y<0) y = 0;
+                    if(cantidad==1){
+                        if (t>2){
+                            disparoO1.setAngulo(angle);
+                            disparoO1.setVelocidad(V0o);
+                            disparoO1.setTiempo(t);
+                            flag += 1;
+                            break;
+                        }
+
+                    }else{
                     ImprimirResultados1(angle, V0o, x, y, t);
                     flag += 1;
                     V0o += 50;
                     break;
+                    }
                 }
                 if(y < 0){
                     break;
                 }
             }
-            if(flag == 3) break;
+            if(flag == cantidad) break;
 
         }
-        if(flag == 3) break;
+        if(flag == cantidad) break;
     }
-    if(flag != 3){
+    if(flag != cantidad){
         cout << "No impacto en los disparos esperados"<< endl;
     }
 }
-void DisparoDefensivo(canonO disparoO,canonD disparoD, int Voo){
+void DisparoDefensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad){
+    vector<int> disparo;
     int flag = 0;
     float x,y;
     float Vxo,Vy0;
@@ -93,21 +111,31 @@ void DisparoDefensivo(canonO disparoO,canonD disparoD, int Voo){
                 y = disparoD.getYd() + Vy0*t -(0.5*G*t*t);
                 if(sqrt(pow((disparoO.getXo() - x),2)+pow((disparoO.getYo() - y),2)) < disparoD.getD0()){
                     if(y<0) y = 0;
+                    if(cantidad==1){
+                        if (t>2){
+                            disparoD1.setAngulo(angle);
+                            disparoD1.setVelocidad(V0o);
+                            disparoD1.setTiempo(t);
+                            flag += 1;
+                            break;
+                        }
+                    }else{
                     ImprimirResultados1(angle, V0o, x, y, t);
                     flag += 1;
                     V0o += 50;
                     break;
+                    }
                 }
                 if(y < 0){
                     break;
                 }
             }
-            if(flag == 3) break;
+            if(flag == cantidad) break;
 
         }
-        if(flag == 3) break;
+        if(flag == cantidad) break;
     }
-    if(flag != 3){
+    if(flag != cantidad){
         cout << "No impacto en los disparos esperados"<< endl;
     }
 }
