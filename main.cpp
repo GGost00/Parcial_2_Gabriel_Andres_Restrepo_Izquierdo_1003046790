@@ -15,7 +15,7 @@ balaO disparoD1 = balaO();
 void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad);
 void DisparoDefensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad);
 void DefensaDefensivo1(canonO disparoO,canonD disparoD,int cantidad);
-void DefensaDefensivo();
+void ContraAtaqueOf(canonO disparoO,canonD disparoD,int cantidad);
 
 int main()
 {
@@ -31,10 +31,12 @@ int main()
     canonO disparoO = canonO(distancia,Hoo);
     canonD disparoD = canonD(distancia,Hod);
     cout<<endl;
+
     //DisparoOfensivo(disparoO, disparoD, 1,3);
     //DisparoDefensivo(disparoO, disparoD, 1,3);
     //DefensaDefensivo1(disparoO, disparoD,3);
-    //
+    //ContraAtaqueOf(disparoO, disparoD,3);
+
 
     return 0;
 }
@@ -69,6 +71,7 @@ void DisparoOfensivo(canonO disparoO,canonD disparoD, int Voo,int cantidad){
                     if(y<0) y = 0;
                     if(cantidad==1){
                         if (t>2){
+                            cout<<"disparo ofensivo--------------"<<endl;
                             ImprimirResultados1(angle, V0o, x, y, t);
                             disparoO1.setAngulo(angle);
                             disparoO1.setVelocidad(V0o);
@@ -157,7 +160,7 @@ void DefensaDefensivo1(canonO disparoO,canonD disparoD,int cantidad){
     vxoo=disparoO1.getVelocidad()*cos((disparoO1.getAngulo())*pi/180);
     vyoo=disparoO1.getVelocidad()*sin((disparoO1.getAngulo())*pi/180);
     xb=vxoo*(t +2);
-    yb=disparoO.getYo()+vyoo*(t +2)-((1/2)*G*(pow(t,2)/4));
+    yb=disparoO.getYo()+vyoo*(t +2)-((1/2)*G*(pow(t,2)));
 
 
 
@@ -170,11 +173,13 @@ void DefensaDefensivo1(canonO disparoO,canonD disparoD,int cantidad){
             y = 0.0;
 
             x = Vxo*(t +2);
-            y = disparoD.getYd() + Vy0*(t+2) -(0.5*G*(pow(t,2)/4));
-            if(sqrt(pow((xb - x),2)+pow((yb - y),2)) < disparoD.getD0()){
+            y = disparoD.getYd() + Vy0*(t+2) -(0.5*G*(pow(t,2)));
+            if(sqrt(pow((xb - x),2)+pow((yb - y),2)) < disparoO.getD0()){
                 if(y<0) y = 0;
                 if(cantidad==1){
-                    if (t>2){
+                    if (t>3){
+                        cout<<"disparo defensivo--------------"<<endl;
+                        ImprimirResultados1(anglbd+90, vbd, x, y, t);
                         disparoD1.setAngulo(anglbd);
                         disparoD1.setVelocidad(vbd);
                         disparoD1.setTiempo(t);
@@ -182,7 +187,67 @@ void DefensaDefensivo1(canonO disparoO,canonD disparoD,int cantidad){
                         break;
                     }
                 }else{
-                    ImprimirResultados1(anglbd, vbd, x, y, t+2);
+                    ImprimirResultados1(anglbd+90, vbd, x, y, t);
+                    tiempoRes=tiempoRes/2;
+                    t+=tiempoRes/2;
+                    flag += 1;
+                    vbd =0;
+                    break;
+                }
+            }
+            if(y < 0){
+                break;
+            }
+
+
+        }
+        if(flag == cantidad) break;
+    }
+    if(flag != cantidad){
+        cout << "No impacto en los disparos esperados"<< endl;
+    }
+}
+void ContraAtaqueOf(canonO disparoO,canonD disparoD,int cantidad){
+    DefensaDefensivo1(disparoO, disparoD, 1);
+
+
+    float tiempoRes =disparoD1.getTiempo()-1;
+    float xb,yb;
+    int flag = 0;
+    float x,y;
+    float Vxo,Vy0,vxoo,vyoo;
+    int vbd = 0;
+    float t = tiempoRes/2;
+    int anglbd = 0;
+    vxoo=disparoD1.getVelocidad()*cos((disparoD1.getAngulo()+90)*pi/180);
+    vyoo=disparoD1.getVelocidad()*sin((disparoD1.getAngulo()+90)*pi/180);
+    xb=disparoD.getD()+ vxoo*(t +1);
+    yb=disparoO.getYo()+vyoo*(t +1)-((1/2)*G*(pow(t,2)));
+
+
+
+
+    for(vbd = 1; ; vbd += 1){
+        for(anglbd = 0; anglbd < 90; anglbd++){
+            Vxo = abs(vbd*cos((anglbd)*pi/180));
+            Vy0 = abs(vbd*sin((anglbd)*pi/180));
+            x = 0.0;
+            y = 0.0;
+
+            x = Vxo*(t +1);
+            y = disparoO.getYo() + Vy0*(t+1) -(0.5*G*(pow(t,2)));
+            if(sqrt(pow((xb - x),2)+pow((yb - y),2)) < disparoD.getD()*0.005){
+                if(y<0) y = 0;
+                if(cantidad==1){
+                    if (t>3){
+                        disparoD1.setAngulo(anglbd);
+                        disparoD1.setVelocidad(vbd);
+                        disparoD1.setTiempo(t);
+                        flag += 1;
+                        break;
+                    }
+                }else{
+                    ImprimirResultados1(anglbd, vbd, x, y, t);
                     tiempoRes=tiempoRes/2;
                     t+=tiempoRes/2;
                     flag += 1;
